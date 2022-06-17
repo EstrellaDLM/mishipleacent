@@ -1,5 +1,5 @@
 
-const API="https://api.thecatapi.com/v1/images/search";
+const API="https://api.thecatapi.com/v1/images/search?limit=3";
 // //*Aqui hacemos un llamado a la API con la url, para insertarla en dentro del src de la etiqueta img que tenmos en el HTML
 //!Aqui solo estamos usando las promesas
 // fetch(API)
@@ -14,8 +14,16 @@ const API="https://api.thecatapi.com/v1/images/search";
 const llamado=async(URL)=>{
     const res= await fetch(URL);
     const data=await res.json();
-    const imgGatos=document.getElementById("gatos");
-    imgGatos.src=data[0].url;
+  
+    
+const img1=document.getElementById("gatos1")
+const img2=document.getElementById("gatos2")
+const img3=document.getElementById("gatos3")
+    
+   
+    img1.src=data[0].url;
+    img2.src=data[1].url;
+    img3.src=data[2].url;
 
 }
 
