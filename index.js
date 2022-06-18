@@ -1,9 +1,10 @@
 const API_URL_Random = "https://api.thecatapi.com/v1/images/search?limit=3";
-const API_URL_Favorite = "https://api.thecatapi.com/v1/favourites?limit=3";
-const API_key = "api_key=6d575e5b-5a31-470f-a0de-91e9c5eb0976";
+const API_URL_Favorite = 'https://api.thecatapi.com/v1/favourites?';
+const API_key = 'api_key=6d575e5b-5a31-470f-a0de-91e9c5eb0976';
 const next = document.getElementById("next");
 const favs= document.getElementById("favs")
 const spanError=document.getElementById("error")
+console.log(`${API_URL_Favorite}${API_key}/`)
 // //*Aqui hacemos un llamado a la API con la url, para insertarla en dentro del src de la etiqueta img que tenmos en el HTML
 //!Aqui solo estamos usando las promesas
 // fetch(API)
@@ -36,7 +37,7 @@ const michisRamdons = async () => {
 //* Ahora vamos a crear una funcion aaprte para llamar a los michis favortos, no se recomienda crearlo en la misma funcion, por eso haremos otra
 const michisFavoritos = async () => {
    
-    const res = await fetch(`${API_URL_Favorite}&${API_key}`);
+    const res = await fetch(`${API_URL_Favorite}${API_key}`);
     const data = await res.json();
     console.log("favs",data)
  
@@ -45,10 +46,30 @@ const michisFavoritos = async () => {
     }
 
 };
+const saveMichisFavoritos= async () => {
+    const res = await fetch(`${API_URL_Favorite}${API_key}/`,{
+        method:"POST", 
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            image_id:"76k"
+        })
+        
+    });
+    const data=await res.json();
+    console.log("savFav",data);
+    if(res.status !==200){
+        spanError.innerHTML="Hubo un error pirobo: "+res.status+data.message;
+    }
+console.log("savM",res)
+}
 
 michisRamdons();
 
 michisFavoritos();
+
+
 
 //!funciones de los botones
 //!Boton para siguiente imagen
